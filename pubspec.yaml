@@ -12,7 +12,8 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  plugin_platform_interface: ^2.0.2
+  plugin_platform_interface: any
+  video_player: any
 
 dev_dependencies:
   flutter_test:

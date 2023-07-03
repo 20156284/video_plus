@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:video_plus/VideoPlusPlayer.dart';
+import 'package:video_plus/video_plus_player.dart';
 
 /// https://fijkplayer.befovy.com/docs/zh/custom-ui.html#%E6%97%A0%E7%8A%B6%E6%80%81-ui-
 Widget simplestUI(VideoPlusPlayer player, BuildContext context, Size viewSize,
