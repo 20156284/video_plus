@@ -1,6 +1,6 @@
 //MIT License
 //
-//Copyright (c) [2019] [Befovy]
+//Copyright (c) [2023] [Will]
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,9 @@
 
 part of VideoPlusPlayer;
 
-/// FijkPlayer present as a playback. It interacts with native object.
+/// VideoPlusPlayer present as a playback. It interacts with native object.
 ///
-/// FijkPlayer invoke native method and receive native event.
+/// VideoPlusPlayer invoke native method and receive native event.
 class VideoPlusPlayer extends ChangeNotifier
     implements ValueListenable<VideoPlusValue> {
   VideoPlusPlayer()
@@ -176,9 +176,9 @@ class VideoPlusPlayer extends ChangeNotifier
     VideoPlusLog.i('create player id:$_playerId');
 
     _allInstance[_playerId] = this;
-    _channel = MethodChannel('befovy.com/fijkplayer/$_playerId');
+    _channel = MethodChannel('will/video_plus_player/$_playerId');
     _nativeEventSubscription =
-        EventChannel('befovy.com/fijkplayer/event/$_playerId')
+        EventChannel('will/video_plus_player/event/$_playerId')
             .receiveBroadcastStream()
             .listen(_eventListener, onError: _errorListener);
     _nativeSetup.complete(_playerId);
@@ -596,6 +596,6 @@ class VideoPlusPlayer extends ChangeNotifier
 
   @override
   String toString() {
-    return 'FijkPlayer{id:$_playerId}';
+    return 'VideoPlusPlayer{id:$_playerId}';
   }
 }

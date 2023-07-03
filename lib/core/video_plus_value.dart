@@ -1,6 +1,6 @@
 //MIT License
 //
-//Copyright (c) [2019] [Befovy]
+//Copyright (c) [2023] [Will]
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,7 @@ part of VideoPlusPlayer;
 
 /// State of the [VideoPlusPlayer]
 ///
-/// This is the state machine of ijkplayer. FijkPlayer has the same state as native ijkplayer.
+/// This is the state machine of ijkplayer. VideoPlusPlayer has the same state as native ijkplayer.
 /// The state changed after method called or when some error occurs.
 /// One state can only change into the new state it can reach.
 ///

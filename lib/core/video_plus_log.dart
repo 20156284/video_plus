@@ -1,6 +1,6 @@
 //MIT License
 //
-//Copyright (c) [2019-2020] [Befovy]
+//Copyright (c) [2019-2023] [Will]
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -84,9 +84,10 @@ class VideoPlusLog {
   static void setLevel(final VideoPlusLogLevel level) {
     assert(level != null);
     _level = level;
-    log(VideoPlusLogLevel.Silent, 'set log level $level', 'fijk');
+    log(VideoPlusLogLevel.Silent, 'set log level $level', 'VideoPlus');
     VideoPlusPlugin._setLogLevel(level.level).then((_) {
-      log(VideoPlusLogLevel.Silent, 'native log level ${level.level}', 'fijk');
+      log(VideoPlusLogLevel.Silent, 'native log level ${level.level}',
+          'VideoPlus');
     });
   }
 
@@ -101,27 +102,27 @@ class VideoPlusLog {
   }
 
   /// log [msg] with [VideoPlusLogLevel.Verbose] level
-  static void v(String msg, {String tag = 'fijk'}) {
+  static void v(String msg, {String tag = 'VideoPlus'}) {
     log(VideoPlusLogLevel.Verbose, msg, tag);
   }
 
   /// log [msg] with [VideoPlusLogLevel.Debug] level
-  static void d(String msg, {String tag = 'fijk'}) {
+  static void d(String msg, {String tag = 'VideoPlus'}) {
     log(VideoPlusLogLevel.Debug, msg, tag);
   }
 
   /// log [msg] with [VideoPlusLogLevel.Info] level
-  static void i(String msg, {String tag = 'fijk'}) {
+  static void i(String msg, {String tag = 'VideoPlus'}) {
     log(VideoPlusLogLevel.Info, msg, tag);
   }
 
   /// log [msg] with [VideoPlusLogLevel.Warn] level
-  static void w(String msg, {String tag = 'fijk'}) {
+  static void w(String msg, {String tag = 'VideoPlus'}) {
     log(VideoPlusLogLevel.Warn, msg, tag);
   }
 
   /// log [msg] with [VideoPlusLogLevel.Error] level
-  static void e(String msg, {String tag = 'fijk'}) {
+  static void e(String msg, {String tag = 'VideoPlus'}) {
     log(VideoPlusLogLevel.Error, msg, tag);
   }
 }

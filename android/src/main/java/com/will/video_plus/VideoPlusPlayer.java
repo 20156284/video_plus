@@ -1,6 +1,6 @@
 //MIT License
 //
-//Copyright (c) [2019-2020] [Befovy]
+//Copyright (c) [2019-2023] [Will]
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -100,11 +100,11 @@ public class VideoPlusPlayer implements MethodChannel.MethodCallHandler, IjkEven
             mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "start-on-prepared", 0);
 
             // IjkMediaPlayer.native_setLogLevel(IjkMediaPlayer.IJK_LOG_INFO);
-            mMethodChannel = new MethodChannel(mEngine.messenger(), "befovy.com/fijkplayer/" + mPlayerId);
+            mMethodChannel = new MethodChannel(mEngine.messenger(), "will/video_plus_player/" + mPlayerId);
             mMethodChannel.setMethodCallHandler(this);
             mIjkMediaPlayer.setOnSnapShotListener(this);
 
-            mEventChannel = new EventChannel(mEngine.messenger(), "befovy.com/fijkplayer/event/" + mPlayerId);
+            mEventChannel = new EventChannel(mEngine.messenger(), "will/video_plus_player/event/" + mPlayerId);
             mEventChannel.setStreamHandler(new EventChannel.StreamHandler() {
                 @Override
                 public void onListen(Object o, EventChannel.EventSink eventSink) {

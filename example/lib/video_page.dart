@@ -48,7 +48,7 @@ class _VideoScreenState extends State<VideoScreen> {
           panelBuilder: fijkPanel2Builder(snapShot: true),
           fsFit: VideoPlusFit.fill,
           // panelBuilder: simplestUI,
-          // panelBuilder: (FijkPlayer player, BuildContext context,
+          // panelBuilder: (VideoPlusPlayer player, BuildContext context,
           //     Size viewSize, Rect texturePos) {
           //   return CustomFijkPanel(
           //       player: player,

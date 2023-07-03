@@ -73,7 +73,7 @@ public class VideoPlusPlugin implements MethodCallHandler, FlutterPlugin, Activi
    */
   @SuppressWarnings("unused")
   public static void registerWith(PluginRegistry.Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "befovy.com/fijk");
+    final MethodChannel channel = new MethodChannel(registrar.messenger(), "will/video_plus");
     VideoPlusPlugin plugin = new VideoPlusPlugin();
     plugin.initWithRegistrar(registrar);
     channel.setMethodCallHandler(plugin);
@@ -85,7 +85,7 @@ public class VideoPlusPlugin implements MethodCallHandler, FlutterPlugin, Activi
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
-    final MethodChannel channel = new MethodChannel(binding.getBinaryMessenger(), "befovy.com/fijk");
+    final MethodChannel channel = new MethodChannel(binding.getBinaryMessenger(), "will/video_plus");
     initWithBinding(binding);
     channel.setMethodCallHandler(this);
 
@@ -219,7 +219,7 @@ public class VideoPlusPlugin implements MethodCallHandler, FlutterPlugin, Activi
       mEventChannel.setStreamHandler(null);
       mEventSink.setDelegate(null);
     }
-    mEventChannel = new EventChannel(messenger, "befovy.com/fijk/event");
+    mEventChannel = new EventChannel(messenger, "will/video_plus/event");
     mEventChannel.setStreamHandler(new EventChannel.StreamHandler() {
       @Override
       public void onListen(Object o, EventChannel.EventSink eventSink) {

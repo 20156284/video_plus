@@ -118,7 +118,7 @@ static int renderType = 0;
         [_ijkMediaPlayer addIJKMPEventHandler:self];
 
         _methodChannel = [FlutterMethodChannel
-            methodChannelWithName:[@"befovy.com/fijkplayer/"
+            methodChannelWithName:[@"will/video_plus_player/"
                                       stringByAppendingString:[_playerId
                                                                   stringValue]]
                   binaryMessenger:[registrar messenger]];
@@ -130,7 +130,7 @@ static int renderType = 0;
         }];
 
         _eventChannel = [FlutterEventChannel
-            eventChannelWithName:[@"befovy.com/fijkplayer/event/"
+            eventChannelWithName:[@"will/video_plus_player/event/"
                                      stringByAppendingString:[_playerId
                                                                  stringValue]]
                  binaryMessenger:[registrar messenger]];

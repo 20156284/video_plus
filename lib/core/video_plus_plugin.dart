@@ -1,6 +1,6 @@
 //MIT License
 //
-//Copyright (c) [2019] [Befovy]
+//Copyright (c) [2023] [Will]
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@ class VideoPlusPlugin {
   /// Make constructor private
   const VideoPlusPlugin._();
 
-  static const MethodChannel _channel = MethodChannel('befovy.com/fijk');
+  static const MethodChannel _channel = MethodChannel('will/video_plus');
 
   static Future<int> _createPlayer() async {
     final pid = await _channel.invokeMethod('createPlayer');
@@ -156,7 +156,7 @@ class VideoPlusPlugin {
   static void _onLoad(String type) {
     if (_eventSubs == null) {
       VideoPlusLog.i('_onLoad $type');
-      _eventSubs = const EventChannel('befovy.com/fijk/event')
+      _eventSubs = const EventChannel('will/video_plus/event')
           .receiveBroadcastStream()
           .listen(VideoPlusPlugin._eventListener,
               onError: VideoPlusPlugin._errorListener);

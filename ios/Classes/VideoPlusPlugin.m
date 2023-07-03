@@ -35,7 +35,7 @@ static VideoPlusPlugin *_instance = nil;
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
     FlutterMethodChannel *channel =
-        [FlutterMethodChannel methodChannelWithName:@"befovy.com/fijk"
+        [FlutterMethodChannel methodChannelWithName:@"will/video_plus"
                                     binaryMessenger:[registrar messenger]];
     VideoPlusPlugin *instance = [[VideoPlusPlugin alloc] initWithRegistrar:registrar];
     _instance = instance;
@@ -64,7 +64,7 @@ static VideoPlusPlugin *_instance = nil;
         _eventSink = [[VideoPlusQueuingEventSink alloc] init];
 
         _eventChannel =
-            [FlutterEventChannel eventChannelWithName:@"befovy.com/fijk/event"
+            [FlutterEventChannel eventChannelWithName:@"will/video_plus/event"
                                       binaryMessenger:[registrar messenger]];
         [_eventChannel setStreamHandler:self];
 
