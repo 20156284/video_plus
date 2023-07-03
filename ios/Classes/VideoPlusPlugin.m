@@ -47,7 +47,8 @@ static VideoPlusPlugin *_instance = nil;
     [[registrar textures] unregisterTexture:vid];
 }
 
-+ (VideoPlusPlugin *)singleInstance {
++ (VideoPlusPlugin *)
+singleInstance {
     return _instance;
 }
 

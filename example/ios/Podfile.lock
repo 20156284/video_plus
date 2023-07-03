@@ -3,6 +3,11 @@ PODS:
   - Flutter (1.0.0)
   - integration_test (0.0.1):
     - Flutter
+  - shared_preferences_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - video_player_avfoundation (0.0.1):
+    - Flutter
   - video_plus (0.0.1):
     - BIJKPlayer (~> 0.7.16)
     - Flutter
@@ -10,6 +15,8 @@ PODS:
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/ios`)
   - video_plus (from `.symlinks/plugins/video_plus/ios`)
 
 SPEC REPOS:
@@ -21,6 +28,10 @@ EXTERNAL SOURCES:
     :path: Flutter
   integration_test:
     :path: ".symlinks/plugins/integration_test/ios"
+  shared_preferences_foundation:
+    :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
+  video_player_avfoundation:
+    :path: ".symlinks/plugins/video_player_avfoundation/ios"
   video_plus:
     :path: ".symlinks/plugins/video_plus/ios"
 
@@ -28,7 +39,9 @@ SPEC CHECKSUMS:
   BIJKPlayer: 4c5d66e5cb99ae5bade6f22a4fcc031722a81c64
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   integration_test: 13825b8a9334a850581300559b8839134b124670
-  video_plus: 688a94a0375bf6212148be4a72fa4eafc3d5439f
+  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
+  video_player_avfoundation: 81e49bb3d9fb63dccf9fa0f6d877dc3ddbeac126
+  video_plus: 05dab2b2ec4de1883d83ab427527479e5553e6c2
 
 PODFILE CHECKSUM: 02caaa843f6501172c0d470d80e72f61175c8b93
 
