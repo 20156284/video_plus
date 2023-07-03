@@ -1,0 +1,35 @@
+PODS:
+  - BIJKPlayer (0.7.16)
+  - Flutter (1.0.0)
+  - integration_test (0.0.1):
+    - Flutter
+  - video_plus (0.0.1):
+    - BIJKPlayer (~> 0.7.16)
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - video_plus (from `.symlinks/plugins/video_plus/ios`)
+
+SPEC REPOS:
+  trunk:
+    - BIJKPlayer
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
+  video_plus:
+    :path: ".symlinks/plugins/video_plus/ios"
+
+SPEC CHECKSUMS:
+  BIJKPlayer: 4c5d66e5cb99ae5bade6f22a4fcc031722a81c64
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  integration_test: 13825b8a9334a850581300559b8839134b124670
+  video_plus: 688a94a0375bf6212148be4a72fa4eafc3d5439f
+
+PODFILE CHECKSUM: 02caaa843f6501172c0d470d80e72f61175c8b93
+
+COCOAPODS: 1.11.3

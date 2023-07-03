@@ -1,11 +1,11 @@
 name: video_plus
-description: A new Flutter project.
+description: This is a fusion of bilibili ijkplayer Player and video_player The main thing is to use ijkplayer on the client and vide_player on the web
 version: 0.0.1
 homepage:
 
 environment:
-  sdk: '>=3.0.5 <4.0.0'
-  flutter: ">=3.3.0"
+  sdk: '>=2.18.0 <4.0.0'
+  flutter: ">=2.0.0"
 
 dependencies:
   flutter:
