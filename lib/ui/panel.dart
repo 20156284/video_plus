@@ -22,10 +22,10 @@
 
 part of video_plus;
 
-/// Default builder generate default [FijkPanel] UI
-Widget defaultFijkPanelBuilder(VideoPlusPlayer player, VideoPlusData data,
+/// Default builder generate default [VideoPanel] UI
+Widget defaultVideoPanelBuilder(VideoPlusPlayer player, VideoPlusData data,
     BuildContext context, Size viewSize, Rect texturePos) {
-  return _DefaultFijkPanel(
+  return _DefaultVideoPanel(
       player: player,
       buildContext: context,
       viewSize: viewSize,
@@ -33,8 +33,8 @@ Widget defaultFijkPanelBuilder(VideoPlusPlayer player, VideoPlusData data,
 }
 
 /// Default Panel Widget
-class _DefaultFijkPanel extends StatefulWidget {
-  const _DefaultFijkPanel({
+class _DefaultVideoPanel extends StatefulWidget {
+  const _DefaultVideoPanel({
     required this.player,
     required this.buildContext,
     required this.viewSize,
@@ -46,7 +46,7 @@ class _DefaultFijkPanel extends StatefulWidget {
   final Rect texturePos;
 
   @override
-  _DefaultFijkPanelState createState() => _DefaultFijkPanelState();
+  _DefaultVideoPanelState createState() => _DefaultVideoPanelState();
 }
 
 String _duration2String(Duration duration) {
@@ -69,7 +69,7 @@ String _duration2String(Duration duration) {
       : '$twoDigitMinutes:$twoDigitSeconds';
 }
 
-class _DefaultFijkPanelState extends State<_DefaultFijkPanel> {
+class _DefaultVideoPanelState extends State<_DefaultVideoPanel> {
   VideoPlusPlayer get player => widget.player;
 
   Duration _duration = const Duration();

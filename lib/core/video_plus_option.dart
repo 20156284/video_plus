@@ -56,7 +56,7 @@ class VideoPlusOption {
     options[3] = Map.from(_swsOption);
     options[4] = Map.from(_playerOption);
     options[5] = Map.from(_swrOption);
-    VideoPlusLog.i('FijkOption cloned');
+    VideoPlusLog.i('VideoOption cloned');
     return options;
   }
 

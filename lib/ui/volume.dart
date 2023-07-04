@@ -22,12 +22,12 @@
 
 part of video_plus;
 
-/// Default builder generate default FijkVolToast UI
-Widget defaultFijkVolumeToast(double value, Stream<double> emitter) {
+/// Default builder generate default VideoToast UI
+Widget defaultVideoVolumeToast(double value, Stream<double> emitter) {
   return _VideoPlusSliderToast(value, 0, emitter);
 }
 
-Widget defaultFijkBrightnessToast(double value, Stream<double> emitter) {
+Widget defaultVideoBrightnessToast(double value, Stream<double> emitter) {
   return _VideoPlusSliderToast(value, 1, emitter);
 }
 

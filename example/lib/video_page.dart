@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:video_plus/video_plus_method_channel.dart';
+import 'package:video_plus/video_plus.dart';
 
 import 'app_bar.dart';
 // import 'custom_ui.dart';
@@ -45,7 +45,7 @@ class _VideoScreenState extends State<VideoScreen> {
       body: Center(
         child: VideoPlusView(
           player: player,
-          panelBuilder: fijkPanel2Builder(snapShot: true),
+          panelBuilder: videoPanel2Builder(snapShot: true),
           fsFit: VideoPlusFit.fill,
           // panelBuilder: simplestUI,
           // panelBuilder: (VideoPlusPlayer player, BuildContext context,

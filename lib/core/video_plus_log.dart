@@ -50,7 +50,7 @@ class VideoPlusLogLevel {
   /// Priority constant for the [VideoPlusLog.log] method; use [VideoPlusLog.w(msg)]
   static const VideoPlusLogLevel Warn = VideoPlusLogLevel._(500, 'war');
 
-  /// Priority constant for the [VideoPlusLog.log] method; use [FijkLog.e(msg)]
+  /// Priority constant for the [VideoPlusLog.log] method; use [VideoPlusLogLevel.e(msg)]
   static const VideoPlusLogLevel Error = VideoPlusLogLevel._(600, 'err');
   static const VideoPlusLogLevel Fatal = VideoPlusLogLevel._(700, 'fal');
   static const VideoPlusLogLevel Silent = VideoPlusLogLevel._(800, 'sil');
@@ -63,8 +63,8 @@ class VideoPlusLogLevel {
 
 /// API for sending log output
 ///
-/// Generally, you should use the [FijkLog.d(msg)], [FijkLog.i(msg)],
-/// [FijkLog.w(msg)], and [FijkLog.e(msg)] methods to write logs.
+/// Generally, you should use the [VideoPlusLogLevel.d(msg)], [VideoPlusLogLevel.i(msg)],
+/// [VideoPlusLogLevel.w(msg)], and [VideoPlusLogLevel.e(msg)] methods to write logs.
 /// You can then view the logs in console/logcat.
 ///
 /// The order in terms of verbosity, from least to most is ERROR, WARN, INFO, DEBUG, VERBOSE.

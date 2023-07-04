@@ -28,7 +28,7 @@ part of video_plus;
 ///
 /// Must not return null.
 /// The return widget is placed as one of [Stack]'s children.
-/// If change FijkView between normal mode and full screen mode, the panel would
+/// If change VideoView between normal mode and full screen mode, the panel would
 /// be rebuild. [data] can be used to pass value from different panel.
 typedef VideoPlusPanelWidgetBuilder = Widget Function(VideoPlusPlayer player,
     VideoPlusData data, BuildContext context, Size viewSize, Rect texturePos);
@@ -43,7 +43,7 @@ class VideoPlusFit {
       this.sizeFactor = 1.0});
 
   /// [Alignment] for this [VideoPlusView] Container.
-  /// alignment is applied to Texture inner FijkView
+  /// alignment is applied to Texture inner VideoView
   final Alignment alignment;
 
   /// [aspectRatio] controls inner video texture widget's aspect ratio.
@@ -59,7 +59,7 @@ class VideoPlusFit {
   /// just pass the aspectRatio you want.
   ///
   /// Addition: double.infinate is a special value.
-  /// The aspect ratio of inner Texture will be same as FijkView's aspect ratio
+  /// The aspect ratio of inner Texture will be same as VideoView's aspect ratio
   /// if you set double.infinate to attribute aspectRatio.
   final double aspectRatio;
 
@@ -71,16 +71,16 @@ class VideoPlusFit {
   ///  * (-3.0, -2.0) scaling up to [VideoPlusView]'s height
   final double sizeFactor;
 
-  /// Fill the target FijkView box by distorting the video's aspect ratio.
+  /// Fill the target VideoView box by distorting the video's aspect ratio.
   static const VideoPlusFit fill = VideoPlusFit(
     aspectRatio: double.infinity,
   );
 
   /// As large as possible while still containing the video entirely within the
-  /// target FijkView box.
+  /// target VideoView box.
   static const VideoPlusFit contain = VideoPlusFit();
 
-  /// As small as possible while still covering the entire target FijkView box.
+  /// As small as possible while still covering the entire target VideoView box.
   static const VideoPlusFit cover = VideoPlusFit(
     sizeFactor: -0.5,
   );
@@ -94,11 +94,11 @@ class VideoPlusFit {
   static const VideoPlusFit fitHeight = VideoPlusFit(sizeFactor: -2.5);
 
   /// As large as possible while still containing the video entirely within the
-  /// target FijkView box. But change video's aspect ratio to 4:3.
+  /// target VideoView box. But change video's aspect ratio to 4:3.
   static const VideoPlusFit ar4_3 = VideoPlusFit(aspectRatio: 4.0 / 3.0);
 
   /// As large as possible while still containing the video entirely within the
-  /// target FijkView box. But change video's aspect ratio to 16:9.
+  /// target VideoView box. But change video's aspect ratio to 16:9.
   static const VideoPlusFit ar16_9 = VideoPlusFit(aspectRatio: 16.0 / 9.0);
 }
 
@@ -114,7 +114,7 @@ class VideoPlusView extends StatefulWidget {
     this.height,
     this.fit = VideoPlusFit.contain,
     this.fsFit = VideoPlusFit.contain,
-    this.panelBuilder = defaultFijkPanelBuilder,
+    this.panelBuilder = defaultVideoPanelBuilder,
     this.color = const Color(0xFF607D8B),
     this.cover,
     this.fs = true,
@@ -128,10 +128,10 @@ class VideoPlusView extends StatefulWidget {
   /// builder to build panel Widget
   final VideoPlusPanelWidgetBuilder panelBuilder;
 
-  /// This method will be called when fijkView dispose.
-  /// FijkData is managed inner FijkView. User can change fijkData in custom panel.
+  /// This method will be called when VideoView dispose.
+  /// VideoData is managed inner VideoView. User can change VideoData in custom panel.
   /// See [panelBuilder]'s second argument.
-  /// And check if some value need to be recover on FijkView dispose.
+  /// And check if some value need to be recover on VideoView dispose.
   final void Function(VideoPlusData)? onDispose;
 
   /// background color
@@ -156,10 +156,10 @@ class VideoPlusView extends StatefulWidget {
 
   /// Enable or disable the full screen
   ///
-  /// If [fs] is true, FijkView make response to the [VideoPlusValue.fullScreen] value changed,
+  /// If [fs] is true, VideoView make response to the [VideoPlusValue.fullScreen] value changed,
   /// and push o new full screen mode page when [VideoPlusValue.fullScreen] is true, pop full screen page when [VideoPlusValue.fullScreen]  become false.
   ///
-  /// If [fs] is false, FijkView never make response to the change of [VideoPlusValue.fullScreen].
+  /// If [fs] is false, VideoView never make response to the change of [VideoPlusValue.fullScreen].
   /// But you can still call [VideoPlusPlayer.enterFullScreen] and [VideoPlusPlayer.exitFullScreen] and make your own full screen pages.
   final bool fs;
 
@@ -173,7 +173,7 @@ class _VideoPlusViewState extends State<VideoPlusView> {
   double _vHeight = -1;
   bool _fullScreen = false;
 
-  final _fijkData = VideoPlusData();
+  final _videoData = VideoPlusData();
   ValueNotifier<int> paramNotifier = ValueNotifier(0);
 
   @override
@@ -184,7 +184,7 @@ class _VideoPlusViewState extends State<VideoPlusView> {
       _vWidth = s.width;
       _vHeight = s.height;
     }
-    widget.player.addListener(_fijkValueListener);
+    widget.player.addListener(_videoValueListener);
     _nativeSetup();
   }
 
@@ -209,7 +209,7 @@ class _VideoPlusViewState extends State<VideoPlusView> {
     }
   }
 
-  Future<void> _fijkValueListener() async {
+  Future<void> _videoValueListener() async {
     final value = widget.player.value;
     if (value.prepared && _textureId < 0) {
       await _setupTexture();
@@ -237,21 +237,21 @@ class _VideoPlusViewState extends State<VideoPlusView> {
   @override
   void dispose() {
     super.dispose();
-    widget.player.removeListener(_fijkValueListener);
+    widget.player.removeListener(_videoValueListener);
 
-    final brightness = _fijkData.getValue(VideoPlusData._viewPanelBrightness);
+    final brightness = _videoData.getValue(VideoPlusData._viewPanelBrightness);
     if (brightness != null && brightness is double) {
       VideoPlusPlugin.setScreenBrightness(brightness);
-      _fijkData.clearValue(VideoPlusData._viewPanelBrightness);
+      _videoData.clearValue(VideoPlusData._viewPanelBrightness);
     }
 
-    final volume = _fijkData.getValue(VideoPlusData._viewPanelVolume);
+    final volume = _videoData.getValue(VideoPlusData._viewPanelVolume);
     if (volume != null && volume is double) {
       VideoPlusVolume.setVol(volume);
-      _fijkData.clearValue(VideoPlusData._viewPanelVolume);
+      _videoData.clearValue(VideoPlusData._viewPanelVolume);
     }
 
-    widget.onDispose?.call(_fijkData);
+    widget.onDispose?.call(_videoData);
   }
 
   AnimatedWidget _defaultRoutePageBuilder(
@@ -261,11 +261,11 @@ class _VideoPlusViewState extends State<VideoPlusView> {
       builder: (context, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          body: _InnerFijkView(
-            fijkViewState: this,
+          body: _InnerVideoView(
+            videoViewState: this,
             fullScreen: true,
             cover: widget.cover,
-            data: _fijkData,
+            data: _videoData,
           ),
         );
       },
@@ -324,34 +324,34 @@ class _VideoPlusViewState extends State<VideoPlusView> {
       height: widget.height,
       child: _fullScreen
           ? Container()
-          : _InnerFijkView(
-              fijkViewState: this,
+          : _InnerVideoView(
+              videoViewState: this,
               fullScreen: false,
               cover: widget.cover,
-              data: _fijkData,
+              data: _videoData,
             ),
     );
   }
 }
 
-class _InnerFijkView extends StatefulWidget {
-  const _InnerFijkView({
-    required this.fijkViewState,
+class _InnerVideoView extends StatefulWidget {
+  const _InnerVideoView({
+    required this.videoViewState,
     required this.fullScreen,
     required this.cover,
     required this.data,
   });
 
-  final _VideoPlusViewState fijkViewState;
+  final _VideoPlusViewState videoViewState;
   final bool fullScreen;
   final ImageProvider? cover;
   final VideoPlusData data;
 
   @override
-  __InnerFijkViewState createState() => __InnerFijkViewState();
+  _InnerVideoViewState createState() => _InnerVideoViewState();
 }
 
-class __InnerFijkViewState extends State<_InnerFijkView> {
+class _InnerVideoViewState extends State<_InnerVideoView> {
   late VideoPlusPlayer _player;
   VideoPlusPanelWidgetBuilder? _panelBuilder;
   Color? _color;
@@ -367,22 +367,22 @@ class __InnerFijkViewState extends State<_InnerFijkView> {
   void initState() {
     super.initState();
     _player = fView.player;
-    _fijkValueListener();
-    fView.player.addListener(_fijkValueListener);
+    _videoValueListener();
+    fView.player.addListener(_videoValueListener);
     if (widget.fullScreen) {
-      widget.fijkViewState.paramNotifier.addListener(_voidValueListener);
+      widget.videoViewState.paramNotifier.addListener(_voidValueListener);
     }
   }
 
-  VideoPlusView get fView => widget.fijkViewState.widget;
+  VideoPlusView get fView => widget.videoViewState.widget;
 
   void _voidValueListener() {
     final binding = WidgetsBinding.instance;
     if (binding != null)
-      binding.addPostFrameCallback((_) => _fijkValueListener());
+      binding.addPostFrameCallback((_) => _videoValueListener());
   }
 
-  void _fijkValueListener() {
+  void _videoValueListener() {
     if (!mounted) {
       return;
     }
@@ -390,7 +390,7 @@ class __InnerFijkViewState extends State<_InnerFijkView> {
     final panelBuilder = fView.panelBuilder;
     final color = fView.color;
     final fit = widget.fullScreen ? fView.fsFit : fView.fit;
-    final textureId = widget.fijkViewState._textureId;
+    final textureId = widget.videoViewState._textureId;
 
     final value = _player.value;
 
@@ -508,8 +508,8 @@ class __InnerFijkViewState extends State<_InnerFijkView> {
   @override
   void dispose() {
     super.dispose();
-    fView.player.removeListener(_fijkValueListener);
-    widget.fijkViewState.paramNotifier.removeListener(_fijkValueListener);
+    fView.player.removeListener(_videoValueListener);
+    widget.videoViewState.paramNotifier.removeListener(_videoValueListener);
   }
 
   @override
@@ -517,7 +517,7 @@ class __InnerFijkViewState extends State<_InnerFijkView> {
     _panelBuilder = fView.panelBuilder;
     _color = fView.color;
     _fit = widget.fullScreen ? fView.fsFit : fView.fit;
-    _textureId = widget.fijkViewState._textureId;
+    _textureId = widget.videoViewState._textureId;
 
     final value = _player.value;
     final data = widget.data;

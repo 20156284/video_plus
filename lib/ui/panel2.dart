@@ -22,7 +22,7 @@
 
 part of video_plus;
 
-VideoPlusPanelWidgetBuilder fijkPanel2Builder(
+VideoPlusPanelWidgetBuilder videoPanel2Builder(
     {Key? key,
     final bool fill = false,
     final int duration = 4000,
@@ -100,10 +100,10 @@ class _VideoPlusPanel2State extends State<_VideoPlusPanel2> {
   ImageProvider? _imageProvider;
   Timer? _snapshotTimer;
 
-  // Is it needed to clear seek data in FijkData (widget.data)
+  // Is it needed to clear seek data in VideoData (widget.data)
   bool _needClearSeekData = true;
 
-  static const FijkSliderColors sliderColors = FijkSliderColors(
+  static const VideoSliderColors sliderColors = VideoSliderColors(
       cursorColor: Color.fromARGB(240, 250, 100, 10),
       playedColor: Color.fromARGB(200, 240, 90, 50),
       baselineColor: Color.fromARGB(100, 20, 20, 20),
@@ -540,8 +540,8 @@ class _VideoPlusPanel2State extends State<_VideoPlusPanel2> {
     final brightness = _brightness;
     if (volume != null || brightness != null) {
       final toast = volume == null
-          ? defaultFijkBrightnessToast(brightness!, _valController.stream)
-          : defaultFijkVolumeToast(volume, _valController.stream);
+          ? defaultVideoBrightnessToast(brightness!, _valController.stream)
+          : defaultVideoVolumeToast(volume, _valController.stream);
       return IgnorePointer(
         child: AnimatedOpacity(
           opacity: 1,
@@ -613,7 +613,7 @@ class _VideoPlusPanel2State extends State<_VideoPlusPanel2> {
     }
     return Positioned.fromRect(
       rect: rect,
-      child: Stack(children: ws as List<Widget>),
+      child: Stack(children: ws),
     );
   }
 }

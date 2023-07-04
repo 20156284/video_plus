@@ -246,7 +246,7 @@ class _VideoVolumeWatcherState extends State<VideoVolumeWatcher> {
   void showVolToast(double vol) {
     final active = _timer?.isActive ?? false;
     _timer?.cancel();
-    final widget = defaultFijkVolumeToast(vol, _volController.stream);
+    final widget = defaultVideoVolumeToast(vol, _volController.stream);
     if (active == false) {
       final entry = OverlayEntry(builder: (_) => widget);
       _entry = entry;

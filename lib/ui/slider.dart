@@ -22,8 +22,8 @@
 
 part of video_plus;
 
-/// FijkSlider is like Slider in Flutter SDK.
-/// FijkSlider support [cacheValue] which can be used
+/// VideoPlusSlider is like Slider in Flutter SDK.
+/// VideoPlusSlider support [cacheValue] which can be used
 /// to show the player's cached buffer.
 /// The [colors] is used to make colorful painter to draw the line and circle.
 class VideoPlusSlider extends StatefulWidget {
@@ -36,7 +36,7 @@ class VideoPlusSlider extends StatefulWidget {
     this.onChangeEnd,
     this.min = 0.0,
     this.max = 1.0,
-    this.colors = const FijkSliderColors(),
+    this.colors = const VideoSliderColors(),
   })  : assert(min <= max),
         assert(value >= min && value <= max),
         super(key: key);
@@ -50,7 +50,7 @@ class VideoPlusSlider extends StatefulWidget {
   final double min;
   final double max;
 
-  final FijkSliderColors colors;
+  final VideoSliderColors colors;
 
   @override
   State<StatefulWidget> createState() {
@@ -105,9 +105,9 @@ class _VideoPlusSliderState extends State<VideoPlusSlider> {
   }
 }
 
-/// Colors for the FijkSlider
-class FijkSliderColors {
-  const FijkSliderColors({
+/// Colors for the VideoSlider
+class VideoSliderColors {
+  const VideoSliderColors({
     this.playedColor = const Color.fromRGBO(255, 0, 0, 0.6),
     this.bufferedColor = const Color.fromRGBO(50, 50, 100, 0.4),
     this.cursorColor = const Color.fromRGBO(255, 0, 0, 0.8),
@@ -122,7 +122,7 @@ class FijkSliderColors {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is FijkSliderColors &&
+      other is VideoSliderColors &&
           runtimeType == other.runtimeType &&
           hashCode == other.hashCode;
 
@@ -133,14 +133,14 @@ class FijkSliderColors {
 
 class _SliderPainter extends CustomPainter {
   _SliderPainter(this.v, this.cv, this.dragging,
-      {this.colors = const FijkSliderColors()});
+      {this.colors = const VideoSliderColors()});
   final double v;
   final double cv;
 
   final bool dragging;
   final Paint pt = Paint();
 
-  final FijkSliderColors colors;
+  final VideoSliderColors colors;
 
   @override
   void paint(Canvas canvas, Size size) {
