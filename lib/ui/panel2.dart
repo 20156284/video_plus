@@ -20,7 +20,7 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-part of VideoPlusPlayer;
+part of video_plus;
 
 VideoPlusPanelWidgetBuilder fijkPanel2Builder(
     {Key? key,
@@ -129,14 +129,14 @@ class _VideoPlusPanel2State extends State<_VideoPlusPanel2> {
         _currentPos = v;
       }
       if (_needClearSeekData) {
-        widget.data.clearValue(VideoPlusData._fijkViewPanelSeekto);
+        widget.data.clearValue(VideoPlusData._viewPanelSeekTo);
       }
       _needClearSeekData = false;
     });
 
-    if (widget.data.contains(VideoPlusData._fijkViewPanelSeekto)) {
+    if (widget.data.contains(VideoPlusData._viewPanelSeekTo)) {
       final pos =
-          widget.data.getValue(VideoPlusData._fijkViewPanelSeekto) as double;
+          widget.data.getValue(VideoPlusData._viewPanelSeekTo) as double;
       _currentPos = Duration(milliseconds: pos.toInt());
     }
 
@@ -235,8 +235,8 @@ class _VideoPlusPanel2State extends State<_VideoPlusPanel2> {
       // right, volume
       _dragLeft = false;
       VideoPlusVolume.getVol().then((v) {
-        if (!widget.data.contains(VideoPlusData._fijkViewPanelVolume)) {
-          widget.data.setValue(VideoPlusData._fijkViewPanelVolume, v);
+        if (!widget.data.contains(VideoPlusData._viewPanelVolume)) {
+          widget.data.setValue(VideoPlusData._viewPanelVolume, v);
         }
         setState(() {
           _volume = v;
@@ -247,8 +247,8 @@ class _VideoPlusPanel2State extends State<_VideoPlusPanel2> {
       // left, brightness
       _dragLeft = true;
       VideoPlusPlugin.screenBrightness().then((v) {
-        if (!widget.data.contains(VideoPlusData._fijkViewPanelBrightness)) {
-          widget.data.setValue(VideoPlusData._fijkViewPanelBrightness, v);
+        if (!widget.data.contains(VideoPlusData._viewPanelBrightness)) {
+          widget.data.setValue(VideoPlusData._viewPanelBrightness, v);
         }
         setState(() {
           _brightness = v;
@@ -360,7 +360,7 @@ class _VideoPlusPanel2State extends State<_VideoPlusPanel2> {
           setState(() {
             player.seekTo(v.toInt());
             _currentPos = Duration(milliseconds: _seekPos.toInt());
-            widget.data.setValue(VideoPlusData._fijkViewPanelSeekto, _seekPos);
+            widget.data.setValue(VideoPlusData._viewPanelSeekTo, _seekPos);
             _needClearSeekData = true;
             _seekPos = -1.0;
           });

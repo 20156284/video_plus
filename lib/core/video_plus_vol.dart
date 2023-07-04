@@ -20,7 +20,7 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-part of VideoPlusPlayer;
+part of video_plus;
 
 /// [vol] is the value of volume, and has been mapped into range [0.0, 1.0].
 /// true value of [sui] indicates that Android/iOS system volume changed UI is shown for this volume change event.
@@ -52,7 +52,7 @@ class _VolumeValueNotifier extends ValueNotifier<VideoPlusVolumeEvent> {
   _VolumeValueNotifier(VideoPlusVolumeEvent value) : super(value);
 }
 
-/// Fijk System Volume Manger
+/// Video System Volume Manger
 class VideoPlusVolume {
   VideoPlusVolume._();
 
@@ -170,7 +170,7 @@ class VideoPlusVolume {
         VideoPlusVolumeEvent(vol: vol, sui: ui, type: STREAM_MUSIC);
   }
 
-  /// the [listener] wiil be nitified after system volume changed.
+  /// the [listener] will be nitified after system volume changed.
   /// the value after change can be obtained through [VideoPlusVolume.value]
   static void addListener(VoidCallback listener) {
     VideoPlusPlugin._onLoad('vol');
@@ -193,12 +193,12 @@ class VideoPlusVolume {
 /// [value] is the value of volume, and has been mapped into range [0.0, 1.0]
 /// true value of [ui] indicates that Android/iOS system volume changed UI is shown for this volume change event
 /// [streamType] shows track\stream type for this volume change, this value is always [VideoPlusVolume.STREAM_MUSIC] in this version
-typedef FijkVolumeCallback = void Function(VideoPlusVolumeEvent value);
+typedef VideoVolumeCallback = void Function(VideoPlusVolumeEvent value);
 
 /// stateful widget that watching system volume, no ui widget
 /// when system volume changed, [watcher] will be invoked.
-class FijkVolumeWatcher extends StatefulWidget {
-  const FijkVolumeWatcher({
+class VideoVolumeWatcher extends StatefulWidget {
+  const VideoVolumeWatcher({
     super.key,
     required this.watcher,
     /*required*/ required this.child,
@@ -206,7 +206,7 @@ class FijkVolumeWatcher extends StatefulWidget {
   });
 
   /// volume changed callback
-  final FijkVolumeCallback watcher;
+  final VideoVolumeCallback watcher;
 
   /// child widget, must be non-null
   final Widget child;
@@ -217,10 +217,10 @@ class FijkVolumeWatcher extends StatefulWidget {
   final bool showToast;
 
   @override
-  _FijkVolumeWatcherState createState() => _FijkVolumeWatcherState();
+  _VideoVolumeWatcherState createState() => _VideoVolumeWatcherState();
 }
 
-class _FijkVolumeWatcherState extends State<FijkVolumeWatcher> {
+class _VideoVolumeWatcherState extends State<VideoVolumeWatcher> {
   static OverlayEntry? _entry;
   static Timer? _timer;
   late StreamController<double> _volController;

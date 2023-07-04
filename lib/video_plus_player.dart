@@ -1,4 +1,4 @@
-library VideoPlusPlayer;
+library video_plus;
 
 import 'dart:async';
 import 'dart:collection';

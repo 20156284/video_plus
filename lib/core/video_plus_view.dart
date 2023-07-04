@@ -22,7 +22,7 @@
 //SOFTWARE.
 //
 
-part of VideoPlusPlayer;
+part of video_plus;
 
 /// The signature of the [LayoutBuilder] builder function.
 ///
@@ -239,17 +239,16 @@ class _VideoPlusViewState extends State<VideoPlusView> {
     super.dispose();
     widget.player.removeListener(_fijkValueListener);
 
-    final brightness =
-        _fijkData.getValue(VideoPlusData._fijkViewPanelBrightness);
+    final brightness = _fijkData.getValue(VideoPlusData._viewPanelBrightness);
     if (brightness != null && brightness is double) {
       VideoPlusPlugin.setScreenBrightness(brightness);
-      _fijkData.clearValue(VideoPlusData._fijkViewPanelBrightness);
+      _fijkData.clearValue(VideoPlusData._viewPanelBrightness);
     }
 
-    final volume = _fijkData.getValue(VideoPlusData._fijkViewPanelVolume);
+    final volume = _fijkData.getValue(VideoPlusData._viewPanelVolume);
     if (volume != null && volume is double) {
       VideoPlusVolume.setVol(volume);
-      _fijkData.clearValue(VideoPlusData._fijkViewPanelVolume);
+      _fijkData.clearValue(VideoPlusData._viewPanelVolume);
     }
 
     widget.onDispose?.call(_fijkData);

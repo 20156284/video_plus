@@ -20,7 +20,7 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-part of VideoPlusPlayer;
+part of video_plus;
 
 /// State of the [VideoPlusPlayer]
 ///
@@ -109,7 +109,7 @@ enum VideoPlusState {
   end
 }
 
-/// FijkValue include the properties of a [VideoPlusPlayer] which update not frequently.
+/// VideoPlusValue include the properties of a [VideoPlusPlayer] which update not frequently.
 ///
 /// To get the updated value of other frequently updated properties,
 /// add listener of the value stream.
@@ -133,7 +133,7 @@ class VideoPlusValue {
     required this.exception,
   });
 
-  /// Construct FijkValue with uninitialized value
+  /// Construct VideoPlusValue with uninitialized value
   const VideoPlusValue.uninitialized()
       : this(
           prepared: false,
@@ -191,7 +191,7 @@ class VideoPlusValue {
 
   final VideoPlusException exception;
 
-  /// Return new FijkValue which combines the old value and the assigned new value
+  /// Return new VideoPlusValue which combines the old value and the assigned new value
   VideoPlusValue copyWith({
     bool? prepared,
     bool? completed,
@@ -350,15 +350,14 @@ class VideoPlusException implements Exception {
 
   @override
   String toString() {
-    return 'FijkException($code, $message)';
+    return 'VideoException($code, $message)';
   }
 }
 
 class VideoPlusData {
-  static const String _fijkViewPanelVolume = '__fijkview_panel_init_volume';
-  static const String _fijkViewPanelBrightness =
-      '__fijkview_panel_init_brightness';
-  static const String _fijkViewPanelSeekto = '__fijkview_panel_sekto_position';
+  static const String _viewPanelVolume = '__view_panel_init_volume';
+  static const String _viewPanelBrightness = '__view_panel_init_brightness';
+  static const String _viewPanelSeekTo = '__view_panel_sek_to_position';
 
   final Map<String, dynamic> _data = HashMap();
 

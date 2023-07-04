@@ -20,9 +20,9 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-part of VideoPlusPlayer;
+part of video_plus;
 
-/// Log level for the [FijkLog.log] method.
+/// Log level for the [VideoPlusLog.log] method.
 @immutable
 class VideoPlusLogLevel {
   const VideoPlusLogLevel._(int l, String n)
@@ -32,25 +32,25 @@ class VideoPlusLogLevel {
   final int level;
   final String name;
 
-  /// Priority constant for the [FijkLog.log] method;
+  /// Priority constant for the [VideoPlusLog.log] method;
   static const VideoPlusLogLevel All = VideoPlusLogLevel._(000, 'all');
 
-  /// Priority constant for the [FijkLog.log] method;
+  /// Priority constant for the [VideoPlusLog.log] method;
   static const VideoPlusLogLevel Detail = VideoPlusLogLevel._(100, 'det');
 
-  /// Priority constant for the [FijkLog.log] method;
+  /// Priority constant for the [VideoPlusLog.log] method;
   static const VideoPlusLogLevel Verbose = VideoPlusLogLevel._(200, 'veb');
 
-  /// Priority constant for the [FijkLog.log] method; use [FijkLog.d(msg)]
+  /// Priority constant for the [VideoPlusLog.log] method; use [VideoPlusLog.d(msg)]
   static const VideoPlusLogLevel Debug = VideoPlusLogLevel._(300, 'dbg');
 
-  /// Priority constant for the [FijkLog.log] method; use [FijkLog.i(msg)]
+  /// Priority constant for the [VideoPlusLog.log] method; use [VideoPlusLog.i(msg)]
   static const VideoPlusLogLevel Info = VideoPlusLogLevel._(400, 'inf');
 
-  /// Priority constant for the [FijkLog.log] method; use [FijkLog.w(msg)]
+  /// Priority constant for the [VideoPlusLog.log] method; use [VideoPlusLog.w(msg)]
   static const VideoPlusLogLevel Warn = VideoPlusLogLevel._(500, 'war');
 
-  /// Priority constant for the [FijkLog.log] method; use [FijkLog.e(msg)]
+  /// Priority constant for the [VideoPlusLog.log] method; use [FijkLog.e(msg)]
   static const VideoPlusLogLevel Error = VideoPlusLogLevel._(600, 'err');
   static const VideoPlusLogLevel Fatal = VideoPlusLogLevel._(700, 'fal');
   static const VideoPlusLogLevel Silent = VideoPlusLogLevel._(800, 'sil');

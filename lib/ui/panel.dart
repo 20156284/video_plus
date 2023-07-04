@@ -20,7 +20,7 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-part of VideoPlusPlayer;
+part of video_plus;
 
 /// Default builder generate default [FijkPanel] UI
 Widget defaultFijkPanelBuilder(VideoPlusPlayer player, VideoPlusData data,

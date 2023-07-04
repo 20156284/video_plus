@@ -20,7 +20,7 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-part of VideoPlusPlayer;
+part of video_plus;
 
 /// VideoPlusPlayer present as a playback. It interacts with native object.
 ///
@@ -528,17 +528,18 @@ class VideoPlusPlayer extends ChangeNotifier
 
         if (fpState != oldState) {
           VideoPlusLog.i('$this state changed to $fpState <= $oldState');
-          final fijkException = (fpState != VideoPlusState.error)
+          final videoException = (fpState != VideoPlusState.error)
               ? VideoPlusException.noException
               : null;
           if (newStateId == VideoPlusState.prepared.index) {
             _setValue(value.copyWith(
-                prepared: true, state: fpState, exception: fijkException));
+                prepared: true, state: fpState, exception: videoException));
           } else if (newStateId < VideoPlusState.prepared.index) {
             _setValue(value.copyWith(
-                prepared: false, state: fpState, exception: fijkException));
+                prepared: false, state: fpState, exception: videoException));
           } else {
-            _setValue(value.copyWith(state: fpState, exception: fijkException));
+            _setValue(
+                value.copyWith(state: fpState, exception: videoException));
           }
         }
         break;

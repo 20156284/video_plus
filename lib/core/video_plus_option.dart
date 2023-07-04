@@ -20,7 +20,7 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-part of VideoPlusPlayer;
+part of video_plus;
 
 class VideoPlusOption {
   VideoPlusOption() {
@@ -65,9 +65,9 @@ class VideoPlusOption {
   void setHostOption(String key, dynamic value) {
     if (value is String || value is int) {
       _hostOption[key] = value;
-      VideoPlusLog.v('FijkOption.setHostOption key:$key, value :$value');
+      VideoPlusLog.v('VideoPlusOption.setHostOption key:$key, value :$value');
     } else {
-      VideoPlusLog.e('FijkOption.setHostOption with invalid value:$value');
+      VideoPlusLog.e('VideoPlusOption.setHostOption with invalid value:$value');
       throw ArgumentError.value(value, 'value', 'Must be int or String');
     }
   }
@@ -77,9 +77,10 @@ class VideoPlusOption {
   void setPlayerOption(String key, dynamic value) {
     if (value is String || value is int) {
       _playerOption[key] = value;
-      VideoPlusLog.v('FijkOption.setPlayerOption key:$key, value :$value');
+      VideoPlusLog.v('VideoPlusOption.setPlayerOption key:$key, value :$value');
     } else {
-      VideoPlusLog.e('FijkOption.setPlayerOption with invalid value:$value');
+      VideoPlusLog.e(
+          'VideoPlusOption.setPlayerOption with invalid value:$value');
       throw ArgumentError.value(value, 'value', 'Must be int or String');
     }
   }
@@ -89,9 +90,10 @@ class VideoPlusOption {
   void setFormatOption(String key, dynamic value) {
     if (value is String || value is int) {
       _formatOption[key] = value;
-      VideoPlusLog.v('FijkOption.setFormatOption key:$key, value :$value');
+      VideoPlusLog.v('VideoPlusOption.setFormatOption key:$key, value :$value');
     } else {
-      VideoPlusLog.e('FijkOption.setFormatOption with invalid value:$value');
+      VideoPlusLog.e(
+          'VideoPlusOption.setFormatOption with invalid value:$value');
       throw ArgumentError.value(value, 'value', 'Must be int or String');
     }
   }
@@ -101,9 +103,10 @@ class VideoPlusOption {
   void setCodecOption(String key, dynamic value) {
     if (value is String || value is int) {
       _codecOption[key] = value;
-      VideoPlusLog.v('FijkOption.setCodecOption key:$key, value :$value');
+      VideoPlusLog.v('VideoPlusOption.setCodecOption key:$key, value :$value');
     } else {
-      VideoPlusLog.e('FijkOption.setCodecOption with invalid value:$value');
+      VideoPlusLog.e(
+          'VideoPlusOption.setCodecOption with invalid value:$value');
       throw ArgumentError.value(value, 'value', 'Must be int or String');
     }
   }
@@ -113,9 +116,9 @@ class VideoPlusOption {
   void setSwsOption(String key, dynamic value) {
     if (value is String || value is int) {
       _swsOption[key] = value;
-      VideoPlusLog.v('FijkOption.setSwsOption key:$key, value :$value');
+      VideoPlusLog.v('VideoPlusOption.setSwsOption key:$key, value :$value');
     } else {
-      VideoPlusLog.e('FinkOption.setSwsOption with invalid value:$value');
+      VideoPlusLog.e('VideoPlusOption.setSwsOption with invalid value:$value');
       throw ArgumentError.value(value, 'value', 'Must be int or String');
     }
   }
@@ -125,9 +128,9 @@ class VideoPlusOption {
   void setSwrOption(String key, dynamic value) {
     if (value is String || value is int) {
       _swrOption[key] = value;
-      VideoPlusLog.v('FijkOption.setSwrOption key:$key, value :$value');
+      VideoPlusLog.v('VideoPlusOption.setSwrOption key:$key, value :$value');
     } else {
-      VideoPlusLog.e('FijkOption.setSwrOption with invalid value:$value');
+      VideoPlusLog.e('VideoPlusOption.setSwrOption with invalid value:$value');
       throw ArgumentError.value(value, 'value', 'Must be int or String');
     }
   }
