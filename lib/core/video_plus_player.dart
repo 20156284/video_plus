@@ -31,7 +31,7 @@ class VideoPlusPlayer extends ChangeNotifier
       : _nativeSetup = Completer(),
         _value = const VideoPlusValue.uninitialized(),
         super() {
-    VideoPlusLog.d('create new fijkplayer');
+    VideoPlusLog.d('create new VideoPlusPlayer');
     _doNativeSetup();
   }
   static final Map<int, VideoPlusPlayer> _allInstance = HashMap();
@@ -221,9 +221,9 @@ class VideoPlusPlayer extends ChangeNotifier
     }
   }
 
-  Future<void> applyOptions(VideoPlusOption fijkOption) async {
+  Future<void> applyOptions(VideoPlusOption option) async {
     await _nativeSetup.future;
-    return _channel.invokeMethod('applyOptions', fijkOption.data);
+    return _channel.invokeMethod('applyOptions', option.data);
   }
 
   Future<int?> setupSurface() async {
@@ -235,7 +235,7 @@ class VideoPlusPlayer extends ChangeNotifier
   /// Take snapshot (screen shot) of current playing video
   ///
   /// If you want to use [takeSnapshot], you must call
-  /// `player.setOption(FijkOption.hostCategory, "enable-snapshot", 1);`
+  /// `player.setOption(VideoPlusOption.hostCategory, "enable-snapshot", 1);`
   /// after you create a [VideoPlusPlayer].
   /// Or else this method returns error.
   ///
@@ -273,13 +273,13 @@ class VideoPlusPlayer extends ChangeNotifier
   /// If set [autoPlay] true, player will stat to play.
   /// The behavior of [setDataSource(url, autoPlay: true)] is like
   ///    await setDataSource(url);
-  ///    await setOption(FijkOption.playerCategory, "start-on-prepared", 1);
+  ///    await setOption(VideoPlusOption.playerCategory, "start-on-prepared", 1);
   ///    await prepareAsync();
   ///
   /// If set [showCover] true, player will display the first video frame and then enter [VideoPlusState.paused] state.
   /// The behavior of [setDataSource(url, showCover: true)] is like
   ///    await setDataSource(url);
-  ///    await setOption(FijkOption.playerCategory, "cover-after-prepared", 1);
+  ///    await setOption(VideoPlusOption.playerCategory, "cover-after-prepared", 1);
   ///    await prepareAsync();
   ///
   /// If both [autoPlay] and [showCover] are true, [showCover] will be ignored.
@@ -322,8 +322,8 @@ class VideoPlusPlayer extends ChangeNotifier
 
   /// start the async preparing tasks
   ///
-  /// see [fijkstate zh](https://fijkplayer.befovy.com/docs/zh/fijkstate.html) or
-  /// [fijkstate en](https://fijkplayer.befovy.com/docs/en/fijkstate.html) for details
+  /// see [VideoPlusState zh](https://fijkplayer.befovy.com/docs/zh/fijkstate.html) or
+  /// [VideoPlusState en](https://fijkplayer.befovy.com/docs/en/fijkstate.html) for details
   Future<void> prepareAsync() async {
     await _nativeSetup.future;
     if (state == VideoPlusState.initialized) {
@@ -368,8 +368,8 @@ class VideoPlusPlayer extends ChangeNotifier
   /// change player's state to [VideoPlusState.started]
   ///
   /// throw [StateError] if call this method on invalid state.
-  /// see [fijkstate zh](https://fijkplayer.befovy.com/docs/zh/fijkstate.html) or
-  /// [fijkstate en](https://fijkplayer.befovy.com/docs/en/fijkstate.html) for details
+  /// see [VideoPlusState zh](https://fijkplayer.befovy.com/docs/zh/fijkstate.html) or
+  /// [VideoPlusState en](https://fijkplayer.befovy.com/docs/en/fijkstate.html) for details
   Future<void> start() async {
     await _nativeSetup.future;
     if (state == VideoPlusState.initialized) {

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:video_plus/video_plus_player.dart';
+import 'package:video_plus/video_plus_method_channel.dart';
 
 import 'app_bar.dart';
 

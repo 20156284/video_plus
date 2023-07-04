@@ -1,4 +1,3 @@
-
 import 'video_plus_platform_interface.dart';
 
 class VideoPlus {

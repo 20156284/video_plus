@@ -35,9 +35,9 @@ class HomeItem extends StatelessWidget {
 }
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
-  final RecentMediaList list = RecentMediaList();
+  final RecentMediaList list = const RecentMediaList();
 
   @override
   Widget build(BuildContext context) {
@@ -67,22 +67,28 @@ class HomeScreen extends StatelessWidget {
             ),
             HomeItem(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LocalPathScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LocalPathScreen()));
               },
               text: 'Local Folder',
             ),
             HomeItem(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SamplesScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SamplesScreen()));
               },
               text: 'Online Samples',
             ),
             HomeItem(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ListScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ListScreen()));
               },
               text: 'List View',
             )
