@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:video_plus/video_play.dart';
 import 'package:video_plus/video_plus.dart';
+import 'package:video_plus/video_view.dart';
 
 import 'app_bar.dart';
 // import 'custom_ui.dart';
@@ -15,12 +17,12 @@ class VideoScreen extends StatefulWidget {
 
 class _VideoScreenState extends State<VideoScreen> {
   _VideoScreenState();
-  final VideoPlusPlayer player = VideoPlusPlayer();
+  late VideoPlayer player;
 
   @override
   void initState() {
     super.initState();
-    player
+    player = VideoPlayer(url: widget.url)
       ..setOption(VideoPlusOption.hostCategory, 'enable-snapshot', 1)
       ..setOption(VideoPlusOption.playerCategory, 'mediacodec-all-videos', 1);
     startPlay();
@@ -43,14 +45,21 @@ class _VideoScreenState extends State<VideoScreen> {
     return Scaffold(
       appBar: const VideoAppBar(title: 'Video'),
       body: Center(
-        child: VideoPlusView(
+        child: VideoView(
           player: player,
           panelBuilder: videoPanel2Builder(snapShot: true),
           fsFit: VideoPlusFit.fill,
           // panelBuilder: simplestUI,
           // panelBuilder: (VideoPlusPlayer player, BuildContext context,
           //     Size viewSize, Rect texturePos) {
-          //   return CustomFijkPanel(
+          //   return CustomVideoPlusPanel(
+          //       player: player,
+          //       buildContext: context,
+          //       viewSize: viewSize,
+          //       texturePos: texturePos);
+          // },
+          // panelBuilder: (player, data, context, viewSize, texturePos) {
+          //   return CustomVideoPlusPanel(
           //       player: player,
           //       buildContext: context,
           //       viewSize: viewSize,

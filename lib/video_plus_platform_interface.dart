@@ -26,4 +26,12 @@ abstract class VideoPlusPlatform extends PlatformInterface {
   Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
+
+  static Future<int> createPlayer() async {
+    throw UnimplementedError('createPlayer() has not been implemented.');
+  }
+
+  static Future<void> releasePlayer(int pid) {
+    throw UnimplementedError('releasePlayer() has not been implemented.');
+  }
 }

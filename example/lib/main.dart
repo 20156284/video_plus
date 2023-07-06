@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
         primaryColorLight: const Color(0xFFffecb3),
         dividerColor: const Color(0xFFBDBDBD),
       ),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }

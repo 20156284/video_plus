@@ -6,7 +6,8 @@ import 'media_item.dart';
 
 const List<MediaUrl> samples = [
   MediaUrl(
-      title: 'Aliyun', url: 'http://player.alicdn.com/video/aliyunmedia.mp4'),
+      title: 'Aliyun',
+      url: 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8'),
   MediaUrl(
       title: 'http 404', url: 'https://fijkplayer.befovy.com/butterfly.flv'),
   MediaUrl(title: 'assets file', url: 'asset:///assets/butterfly.mp4'),
@@ -111,8 +112,7 @@ class _RecentMediaListState extends State<RecentMediaList> {
   asyncSetup() async {
     prefs = await StreamingSharedPreferences.instance;
 
-    final counter = prefs.getInt('recent_count', defaultValue: 0);
-    counter.listen(onHistoryChanged);
+    prefs.getInt('recent_count', defaultValue: 0).listen(onHistoryChanged);
   }
 
   onHistoryChanged(int v) {
@@ -132,7 +132,7 @@ class _RecentMediaListState extends State<RecentMediaList> {
         itemCount: recentCount > 20 ? 20 : recentCount,
         itemBuilder: (context, index) {
           index = ((newestId + 20) - index) % 20;
-          final key = 'recentid$index';
+          final key = 'recentId$index';
           final item = prefs
               .getCustomValue<MediaUrl>(key,
                   defaultValue: const MediaUrl(url: ''),
@@ -153,7 +153,7 @@ Future<void> addToHistory(MediaUrl mediaUrl) async {
 
   if (count > 0) {
     final theNewest = prefs
-        .getCustomValue<MediaUrl>('recentid$newest',
+        .getCustomValue<MediaUrl>('recentId$newest',
             defaultValue: const MediaUrl(url: ''),
             adapter: JsonAdapter(
               deserializer: (value) =>
@@ -174,7 +174,7 @@ Future<void> addToHistory(MediaUrl mediaUrl) async {
   if (newest >= 0) {
     await prefs.setInt('recent_count', count);
     await prefs.setInt('recent_newest', newest);
-    await prefs.setCustomValue<MediaUrl>('recentid$newest', mediaUrl,
+    await prefs.setCustomValue<MediaUrl>('recentId$newest', mediaUrl,
         adapter: JsonAdapter(
           deserializer: (value) =>
               MediaUrl.fromJson(value as Map<String, dynamic>),
