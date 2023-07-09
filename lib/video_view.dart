@@ -90,8 +90,8 @@ class _VideoViewState extends State<VideoView> {
                   vp.ClosedCaption(
                       text: widget.player.player!.value.caption.text),
                   // _ControlsOverlay(controller: widget.player.player!),
-                  vp.VideoProgressIndicator(widget.player.player!,
-                      allowScrubbing: true),
+                  // vp.VideoProgressIndicator(widget.player.player!,
+                  //     allowScrubbing: true),
                 ],
               ),
             ),
