@@ -7,7 +7,7 @@ import 'media_item.dart';
 const List<MediaUrl> samples = [
   MediaUrl(
       title: 'Aliyun',
-      url: 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8'),
+      url: 'https://h5play.riyufanyi.wang//videos2/b898727ad03142c536fced272bccf4e8/b898727ad03142c536fced272bccf4e8.m3u8?auth_key=1689241495-0-0-753dd11ca67704aaa71fbc1032eb433a'),
   MediaUrl(
       title: 'http 404', url: 'https://fijkplayer.befovy.com/butterfly.flv'),
   MediaUrl(title: 'assets file', url: 'asset:///assets/butterfly.mp4'),

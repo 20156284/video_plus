@@ -19,7 +19,7 @@ class LocalPathScreen extends StatelessWidget {
   }
 }
 
-final RegExp _mediaReg = RegExp(r'.(flv|mp4|mkv|mp3|mp4)$');
+final RegExp _mediaReg = RegExp(r'.(flv|mp4|mkv|mp3|mp4|m3u8)$');
 
 class LocalPath extends StatefulWidget {
   const LocalPath({super.key});

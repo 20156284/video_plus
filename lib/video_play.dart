@@ -13,10 +13,14 @@ import 'package:video_player/video_player.dart';
 import 'package:video_plus/video_plus.dart';
 
 class VideoPlayer {
-  VideoPlayer({required this.url})
+  VideoPlayer({ this.url})
       : player = kIsWeb ? null : VideoPlusPlayer() {
     VideoPlusLog.d('create new VideoPlayer');
     if (kIsWeb) {
+      if(url == null){
+        VideoPlusLog.d('in the web url must no null');
+        return;
+      }
       if (url!.contains('assets')) {
         player = VideoPlayerController.asset(url!);
       }
@@ -34,7 +38,7 @@ class VideoPlayer {
       player.play();
     }
   }
-  final String? url;
+  late String? url;
 
   static final Map<int, VideoPlusPlayer> _allInstance = HashMap();
   var player;

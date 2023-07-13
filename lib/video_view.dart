@@ -79,8 +79,9 @@ class _VideoViewState extends State<VideoView> {
     debugPrint('create new web === $kIsWeb');
 
     return kIsWeb == true
-        ? Container(
-            padding: const EdgeInsets.all(20),
+        ? SizedBox(
+            width: widget.width,
+            height: widget.height,
             child: AspectRatio(
               aspectRatio: widget.player.player!.value.aspectRatio,
               child: Stack(
@@ -89,9 +90,9 @@ class _VideoViewState extends State<VideoView> {
                   vp.VideoPlayer(widget.player.player!),
                   vp.ClosedCaption(
                       text: widget.player.player!.value.caption.text),
-                  // _ControlsOverlay(controller: widget.player.player!),
-                  // vp.VideoProgressIndicator(widget.player.player!,
-                  //     allowScrubbing: true),
+                  _ControlsOverlay(controller: widget.player.player!),
+                  vp.VideoProgressIndicator(widget.player.player!,
+                      allowScrubbing: true),
                 ],
               ),
             ),
