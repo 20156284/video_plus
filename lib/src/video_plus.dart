@@ -75,6 +75,7 @@ class _VideoPlusState extends State<VideoPlus> {
           break;
       }
 
+      player = FijkPlayer();
       await player.setOption(FijkOption.hostCategory, 'enable-snapshot', 1);
       await player.setOption(
           FijkOption.playerCategory, 'mediacodec-all-videos', 1);
