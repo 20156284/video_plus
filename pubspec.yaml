@@ -43,12 +43,12 @@ flutter:
         pluginClass: VideoPlusPlugin
       ios:
         pluginClass: VideoPlusPlugin
-#      linux:
-#        pluginClass: VideoPlusPlugin
-#      macos:
-#        pluginClass: VideoPlusPlugin
-#      windows:
-#        pluginClass: VideoPlusPluginCApi
+      linux:
+        pluginClass: VideoPlusPlugin
+      macos:
+        pluginClass: VideoPlusPlugin
+      windows:
+        pluginClass: VideoPlusPluginCApi
       web:
         pluginClass: VideoPlusWeb
         fileName: video_plus_web.dart
