@@ -1,8 +1,2 @@
-
-import 'video_plus_platform_interface.dart';
-
-class VideoPlus {
-  Future<String?> getPlatformVersion() {
-    return VideoPlusPlatform.instance.getPlatformVersion();
-  }
-}
+export './src/utils/platform_utils.dart';
+export './src/video_plus.dart';

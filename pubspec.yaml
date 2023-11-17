@@ -14,7 +14,9 @@ dependencies:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
   fijkplayer: any
+  visibility_detector: any
   flick_video_player: any
+  video_player: any
 
 dev_dependencies:
   flutter_test:
