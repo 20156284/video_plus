@@ -1,10 +1,3 @@
-#include: package:flutter_lints/flutter.yaml
-
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
-
-
-
 # Copy of https://github.com/flutter/plugins/blob/master/analysis_options.yaml
 
 # This is a copy (as of March 2021) of flutter/flutter's analysis_options file,

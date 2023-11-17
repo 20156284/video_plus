@@ -1,7 +1,8 @@
-group 'com.will.video_plus'
-version '1.0'
+group 'com.video.plus.video_plus'
+version '1.0-SNAPSHOT'
 
 buildscript {
+    ext.kotlin_version = '1.7.10'
     repositories {
         google()
         mavenCentral()
@@ -9,10 +10,11 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
-rootProject.allprojects {
+allprojects {
     repositories {
         google()
         mavenCentral()
@@ -20,26 +22,42 @@ rootProject.allprojects {
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 31
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.video.plus.video_plus'
+    }
+
+    compileSdkVersion 33
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 19
     }
 
     dependencies {
-        testImplementation 'junit:junit:4.13.2'
+        testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'org.mockito:mockito-core:5.0.0'
     }
 
     testOptions {
         unitTests.all {
+            useJUnitPlatform()
+
             testLogging {
                events "passed", "skipped", "failed", "standardOut", "standardError"
                outputs.upToDateWhen {false}
@@ -47,13 +65,4 @@ android {
             }
         }
     }
-}
-
-dependencies {
-
-    // implementation(name: 'fijkplayer-full-release', ext: 'aar')
-
-    // fijkplayer-full include the java lib and native shared libs for armv5 armv7 arm64 x86 x86_64
-    implementation 'com.befovy.fijkplayer:fijkplayer-full:0.7.16'
-    implementation 'androidx.annotation:annotation:1.2.0'
 }
