@@ -113,7 +113,6 @@ class _VideoPlusState extends State<VideoPlus> {
   Widget _buildMobile() {
     return FijkView(
       player: player,
-      panelBuilder: fijkPanel2Builder(snapShot: true),
       fsFit: fit,
     );
   }
