@@ -19,7 +19,7 @@ class VideoPlus extends StatefulWidget {
     super.key,
     required this.url,
     this.useCache = false,
-    this.fit = BoxFit.cover,
+    this.fit = BoxFit.contain,
     this.autoPlay = true,
   });
 
@@ -111,9 +111,20 @@ class _VideoPlusState extends State<VideoPlus> {
   }
 
   Widget _buildMobile() {
-    return FijkView(
-      player: player,
-      fsFit: fit,
+    return VisibilityDetector(
+      key: ObjectKey(player),
+      onVisibilityChanged: (visibility) {
+        final visiblePercentage = visibility.visibleFraction * 100;
+        if (visiblePercentage == 0) {
+          player.pause();
+        } else if (visiblePercentage == 100) {
+          player.start();
+        }
+      },
+      child: FijkView(
+        player: player,
+        fsFit: fit,
+      ),
     );
   }
 
@@ -121,17 +132,19 @@ class _VideoPlusState extends State<VideoPlus> {
     return VisibilityDetector(
       key: ObjectKey(flickManager),
       onVisibilityChanged: (visibility) {
-        if (visibility.visibleFraction == 0 && mounted) {
+        final visiblePercentage = visibility.visibleFraction * 100;
+        if (visiblePercentage == 0) {
           flickManager.flickControlManager?.autoPause();
-        } else if (visibility.visibleFraction == 1) {
+        } else if (visiblePercentage == 100) {
           flickManager.flickControlManager?.autoResume();
         }
       },
       child: FlickVideoPlayer(
         flickManager: flickManager,
-        flickVideoWithControls: const FlickVideoWithControls(
-          closedCaptionTextStyle: TextStyle(fontSize: 8),
-          controls: FlickPortraitControls(),
+        flickVideoWithControls: FlickVideoWithControls(
+          closedCaptionTextStyle: const TextStyle(fontSize: 8),
+          controls: const FlickPortraitControls(),
+          videoFit: widget.fit,
         ),
         flickVideoWithControlsFullscreen: const FlickVideoWithControls(
           controls: FlickLandscapeControls(),
