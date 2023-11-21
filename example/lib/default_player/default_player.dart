@@ -16,7 +16,9 @@ class DefaultPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: VideoPlus(
-        url: mockData['items'][0]['trailer_url'],
+        control: PlusControl(
+          url: mockData['items'][0]['trailer_url'],
+        ),
       ),
     );
   }

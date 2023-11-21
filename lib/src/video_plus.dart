@@ -8,48 +8,37 @@
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 import 'package:video_plus/src/utils/platform_utils.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import 'utils/url_utils.dart';
+import 'controls/plus_control.dart';
 
 class VideoPlus extends StatefulWidget {
   const VideoPlus({
     super.key,
-    required this.url,
-    this.useCache = false,
+    required this.control,
     this.fit = BoxFit.contain,
-    this.autoPlay = true,
   });
-
-  //video url include assets
-  final String url;
-
-  //don't support web
-  final bool useCache;
 
   /// Property passed to [FlickVideoPlayer]
   final BoxFit fit;
 
-  final bool autoPlay;
+  final PlusControl control;
 
   @override
   State<VideoPlus> createState() => _VideoPlusState();
 }
 
 class _VideoPlusState extends State<VideoPlus> {
-  late FijkPlayer player;
   late FijkFit fit;
-  late FlickManager flickManager;
-  late VideoPlayerController videoPlayerController;
+
   @override
   void initState() {
     super.initState();
-    init();
+    initPlay();
   }
 
-  Future<void> init() async {
+  Future<void> initPlay() async {
     if (PlatformUtils.isMobile) {
       switch (widget.fit) {
         case BoxFit.fill:
@@ -74,34 +63,6 @@ class _VideoPlusState extends State<VideoPlus> {
           fit = FijkFit.fill;
           break;
       }
-
-      player = FijkPlayer();
-      await player.setOption(FijkOption.hostCategory, 'enable-snapshot', 1);
-      await player.setOption(
-          FijkOption.playerCategory, 'mediacodec-all-videos', 1);
-
-      await player.setOption(FijkOption.hostCategory, 'request-screen-on', 1);
-      await player.setOption(FijkOption.hostCategory, 'request-audio-focus', 1);
-      await player
-          .setDataSource(
-        widget.url,
-        autoPlay: widget.autoPlay,
-      )
-          .catchError((e) {
-        // print('setDataSource error: $e');
-      });
-    } else {
-      if (UrlUtils.isAssets(widget.url)) {
-        videoPlayerController = VideoPlayerController.asset(widget.url);
-      } else {
-        videoPlayerController =
-            VideoPlayerController.networkUrl(Uri.parse(widget.url));
-      }
-
-      flickManager = FlickManager(
-        videoPlayerController: videoPlayerController,
-        autoPlay: widget.autoPlay,
-      );
     }
   }
 
@@ -112,17 +73,17 @@ class _VideoPlusState extends State<VideoPlus> {
 
   Widget _buildMobile() {
     return VisibilityDetector(
-      key: ObjectKey(player),
+      key: ObjectKey(widget.control.player),
       onVisibilityChanged: (visibility) {
         final visiblePercentage = visibility.visibleFraction * 100;
         if (visiblePercentage == 0) {
-          player.pause();
+          widget.control.onPause();
         } else if (visiblePercentage == 100) {
-          player.start();
+          widget.control.onPlay();
         }
       },
       child: FijkView(
-        player: player,
+        player: widget.control.player!,
         fsFit: fit,
       ),
     );
@@ -130,17 +91,17 @@ class _VideoPlusState extends State<VideoPlus> {
 
   Widget _buildOther() {
     return VisibilityDetector(
-      key: ObjectKey(flickManager),
+      key: ObjectKey(widget.control.flickManager),
       onVisibilityChanged: (visibility) {
         final visiblePercentage = visibility.visibleFraction * 100;
         if (visiblePercentage == 0) {
-          flickManager.flickControlManager?.autoPause();
+          widget.control.onPause();
         } else if (visiblePercentage == 100) {
-          flickManager.flickControlManager?.autoResume();
+          widget.control.onPlay();
         }
       },
       child: FlickVideoPlayer(
-        flickManager: flickManager,
+        flickManager: widget.control.flickManager!,
         flickVideoWithControls: FlickVideoWithControls(
           closedCaptionTextStyle: const TextStyle(fontSize: 8),
           controls: const FlickPortraitControls(),
@@ -155,12 +116,7 @@ class _VideoPlusState extends State<VideoPlus> {
 
   @override
   void dispose() {
-    if (PlatformUtils.isMobile) {
-    } else {
-      videoPlayerController.dispose();
-      flickManager.dispose();
-    }
-
+    widget.control.dispose();
     super.dispose();
   }
 }
