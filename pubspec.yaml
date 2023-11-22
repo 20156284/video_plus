@@ -17,6 +17,12 @@ dependencies:
   visibility_detector: any
   flick_video_player: any
   video_player: any
+  path_provider: any
+  dio: any
+  permission_handler: any
+  package_info_plus: any
+  device_info_plus: any
+  hive: any
 
 dev_dependencies:
   flutter_test:
