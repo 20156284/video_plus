@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
@@ -251,7 +252,7 @@ class DownloadUtil {
       await box.put('download_video_tasks', tasks);
       creating = false;
     } catch (e) {
-      // CommonUtils.debugPrint(CommonUtils.txt('xzcjsb'));
+      debugPrint(e.toString());
       creating = false;
     }
   }
@@ -361,44 +362,56 @@ class DownloadUtil {
   }
 
   //获取本地唯一标识
-  static Future<String> getUniqueId() async {
+  static Future<String> getUniqueId({Function? decry}) async {
     final saveDirectory = await getEnvironmentPath('guqiuni'); // 获取储存地址
-    // CommonUtils.debugPrint(saveDirectory);
+    debugPrint(saveDirectory);
     try {
       final data = await File('${saveDirectory}unis.json').readAsString();
       final Map json = jsonDecode(data);
       final cx = json['uni'].toString();
-      final uits = base64Decode(PlatformAwareCrypto.decry(cx));
+      var uits;
+      if (decry != null) {
+        uits = base64Decode(decry(cx));
+      } else {
+        uits = cx;
+      }
+
       final txt = String.fromCharCodes(uits);
-      // CommonUtils.debugPrint('parsing--$txt--$cx');
       // AppGlobal.isSave = true;
+      debugPrint('parsing--$txt--$cx');
       return txt;
     } on FileSystemException catch (e) {
       final androidInfo = await DeviceInfoPlugin().androidInfo;
-      // CommonUtils.debugPrint('custom id--${androidInfo.androidId}--$e');
-      await setUniqueId(androidInfo.androidId); //存储
-      return androidInfo.androidId;
+      debugPrint('custom id--${androidInfo.id}--$e');
+      await setUniqueId(
+        uni: androidInfo.id,
+      ); //存储
+      return androidInfo.id;
     }
   }
 
   //保存本地唯一标识
-  static Future<void> setUniqueId(String uni) async {
-    if (uni.isEmpty) return;
+  static Future<void> setUniqueId(
+      {required String uni, Function? encry}) async {
+    if (uni.isEmpty) {
+      return;
+    }
     try {
       final saveDirectory = await getEnvironmentPath('guqiuni'); // 获取储存地址
       final json = {};
       final bytes = Uint8List.fromList(uni.codeUnits);
-      final String txt = PlatformAwareCrypto.encry(base64Encode(bytes));
+      final String txt =
+          encry == null ? base64Encode(bytes) : encry(base64Encode(bytes));
       json['uni'] = txt;
       final pathf = await File('${saveDirectory}unis.json')
           .writeAsBytes(utf8.encode(jsonEncode(json)));
       if (pathf.path.isNotEmpty) {
-        // CommonUtils.debugPrint('save success');
+        debugPrint('save success');
       } else {
-        // CommonUtils.debugPrint('failed success');
+        debugPrint('failed success');
       }
     } on FileSystemException catch (e) {
-      // CommonUtils.debugPrint(e);
+      debugPrint(e.toString());
     }
   }
 }
