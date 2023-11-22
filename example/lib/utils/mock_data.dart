@@ -1,6 +1,12 @@
 Map<String, dynamic> mockData = {
   'items': [
     {
+      'title': '9th May & Fireworks',
+      'image': 'images/9th_may_poster.jpg',
+      'trailer_url':
+          'https://10play.sdtuxyh.cn//videos2/0738f20c23fa131d7208e57be467ec19/0738f20c23fa131d7208e57be467ec19.m3u8?auth_key=1700653519-0-0-37ad9bb4df3bb55e60f1fdd68706430a&v=2',
+    },
+    {
       'title': 'Rio from Above',
       'image': 'images/rio_from_above_poster.jpg',
       'trailer_url':

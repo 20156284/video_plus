@@ -3,22 +3,24 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dior;
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-Dio dio = Dio();
+dior.Dio dio = dior.Dio();
 
-class DownloadUtil {
+class VideoDownloadUtil {
   static List downloadTasks = []; // 下载任务队列
   static bool downloading = false; // 是否存在下载任务
   static int finishCount = 0; // 当前下载完成的分片数量
   static bool creating = false; // 防止连点
   static bool currentRemove = false; // 当前下载任务是否被删除
+  static String boxName = 'video_plus';
 
+  //移除下砸队列
   static void removeTask(String delId) {
     if (downloadTasks.isEmpty) {
       return;
@@ -75,12 +77,12 @@ class DownloadUtil {
   // 视频解密，返回ts队列
   static Future<Map> getTsList({
     required String urlPath,
-    bool encrypt = true,
+    bool encrypt = false,
     Function? decryptM3U8,
   }) async {
     // 视频地址解密
     String decrypted;
-    final res = await Dio().get(urlPath);
+    final res = await dio.get(urlPath);
     if (encrypt && decryptM3U8 != null) {
       decrypted = decryptM3U8(res.data);
     } else {
@@ -117,17 +119,18 @@ class DownloadUtil {
   }
 
   // 初始化下载状态
-  static void initStatus(int finishNum) {
+  static void initStatus({required int finishNum, String? cacheName}) {
     downloading = true;
     currentRemove = false;
     finishCount = finishNum;
+    boxName = cacheName ?? 'video_plus';
   }
 
   // 开始下个任务
   static Future<void> startNext() async {
     if (downloadTasks.isNotEmpty) {
       // LogUtil.d("${downloadTasks[0]["taskInfo"]["title"]}");
-      final box = await Hive.openBox('guqibox');
+      final box = await Hive.openBox(boxName);
       final List tasks = box.get('download_video_tasks') ?? [];
       downloadTasks[0]['taskInfo']['downloading'] = true;
       final taskNum = tasks
@@ -177,7 +180,7 @@ class DownloadUtil {
    */
   static Future<void> createDownloadTask({
     required Map taskInfo,
-    bool encrypt = true,
+    bool encrypt = false,
     Function? decryptM3U8,
   }) async {
     if (creating) {
@@ -191,7 +194,7 @@ class DownloadUtil {
       return;
     }
     try {
-      final box = await Hive.openBox('guqibox');
+      final box = await Hive.openBox(boxName);
       final List tasks = box.get('download_video_tasks') ?? [];
       final existTaskIndex = tasks.indexWhere((e) => e['id'] == taskInfo['id']);
       final existDownloadTaskIndex = downloadTasks
@@ -257,9 +260,26 @@ class DownloadUtil {
     }
   }
 
+  // 下载中心
+  /*
+   * taskInfo数据结构:
+   * id              视频id
+   * urlPath         下载地址（需解密）
+   * title           视频标题
+   * thumbCover      视频封面
+   * tags            视频标签
+   * contentType     视频类型
+   * downloading     视频下载状态 bool
+   * isWaiting       是否在下载队列中 bool
+   * url             视频m3u8储存地址
+   * tsLists         视频ts链接队列
+   * localM3u8       本地m3u8文件 string
+   * tsListsFinished 已下载完成的ts队列
+   * progress        视频下载进度
+   */
   static Future<void> downloadContent(Map taskInfo, Box box) async {
     final List tsListsFinished = taskInfo['tsListsFinished'];
-    initStatus(tsListsFinished.length);
+    initStatus(finishNum: tsListsFinished.length);
     final tsLists = <String>[taskInfo['tsLists']];
     final String saveDirectory =
         taskInfo['url'].substring(0, taskInfo['url'].lastIndexOf('/'));
@@ -287,8 +307,14 @@ class DownloadUtil {
       try {
         final savePath =
             "$saveDirectory/${tsLists[_index].substring(tsLists[_index].lastIndexOf("/") + 1, tsLists[_index].contains(".ts") ? (tsLists[_index].indexOf(".ts") + 3) : (tsLists[_index].indexOf(".key") + 4))}";
-        _index = await downloadItem(tsLists[_index], savePath, _index,
-            taskInfo['id'], taskInfo['tsLists'].length, box);
+        _index = await downloadItem(
+          urlPath: tsLists[_index],
+          savePath: savePath,
+          index: _index,
+          id: taskInfo['id'],
+          tsTotal: taskInfo['tsLists'].length,
+          box: box,
+        );
         if (currentRemove) {
           return;
         }
@@ -326,9 +352,15 @@ class DownloadUtil {
     await start();
   }
 
-// 单个下载方法
-  static Future<int> downloadItem(String urlPath, String savePath, int index,
-      String id, int tsTotal, Box box) async {
+  // 单个下载方法
+  static Future<int> downloadItem({
+    required String urlPath,
+    required String savePath,
+    required int index,
+    required String id,
+    required int tsTotal,
+    required Box box,
+  }) async {
     Future<int> start() async {
       if (currentRemove) {
         return index;
@@ -391,8 +423,10 @@ class DownloadUtil {
   }
 
   //保存本地唯一标识
-  static Future<void> setUniqueId(
-      {required String uni, Function? encry}) async {
+  static Future<void> setUniqueId({
+    required String uni,
+    Function? encry,
+  }) async {
     if (uni.isEmpty) {
       return;
     }

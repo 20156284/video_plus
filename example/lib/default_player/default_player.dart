@@ -7,6 +7,7 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:video_plus/video_plus.dart';
+import 'package:video_plus_example/utils/crypto.dart';
 import 'package:video_plus_example/utils/mock_data.dart';
 
 class DefaultPlayer extends StatelessWidget {
@@ -18,6 +19,9 @@ class DefaultPlayer extends StatelessWidget {
       child: VideoPlus(
         control: PlusControl(
           url: mockData['items'][0]['trailer_url'],
+          decryptM3U8: PlatformAwareCrypto.decryptM3U8,
+          encry: PlatformAwareCrypto.encry,
+          useCache: true,
         ),
       ),
     );
