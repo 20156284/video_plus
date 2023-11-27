@@ -8,13 +8,20 @@
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:video_plus/src/utils/platform_utils.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import 'controls/plus_control.dart';
 
-class VideoPlus extends StatefulWidget {
-  const VideoPlus({
+class VideoPlus {
+  static Future<void> initFlutter([String? subDir]) async {
+    await Hive.initFlutter(subDir);
+  }
+}
+
+class VideoPlusView extends StatefulWidget {
+  const VideoPlusView({
     super.key,
     required this.control,
     this.fit = BoxFit.contain,
@@ -26,10 +33,10 @@ class VideoPlus extends StatefulWidget {
   final PlusControl control;
 
   @override
-  State<VideoPlus> createState() => _VideoPlusState();
+  State<VideoPlusView> createState() => _VideoPlusViewState();
 }
 
-class _VideoPlusState extends State<VideoPlus> {
+class _VideoPlusViewState extends State<VideoPlusView> {
   late FijkFit fit;
 
   @override

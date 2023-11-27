@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:video_plus/video_plus.dart';
 
 import 'animation_player/animation_player.dart';
 import 'custom_orientation_player/custom_orientation_player.dart';
@@ -7,7 +8,11 @@ import 'feed_player/feed_player.dart';
 import 'landscape_player/landscape_player.dart';
 import 'short_video_player/short_video_home_page.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await VideoPlus.initFlutter();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

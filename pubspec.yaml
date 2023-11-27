@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  plugin_platform_interface: ^2.0.2
+  plugin_platform_interface: any
   fijkplayer: any
   visibility_detector: any
   flick_video_player: any
@@ -22,7 +22,8 @@ dependencies:
   permission_handler: any
   package_info_plus: any
   device_info_plus: any
-  hive: any
+  hive_flutter: any
+  loggy: any
 
 dev_dependencies:
   flutter_test:

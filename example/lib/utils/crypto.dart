@@ -70,33 +70,7 @@ class PlatformAwareCrypto {
     return decrypted;
   }
 
-  // //获取小说
-  // static Future<String> decryptNovel(String url) async {
-  //   final base64 = await PlatformAwareHttp.getNovel(url);
-  //   dynamic decrypted = decryptImage(base64);
-  //   if (decrypted != '' && decrypted != null) {
-  //     decrypted = base64Decode(decrypted);
-  //     final data = utf8.decode(decrypted);
-  //     return data;
-  //   }
-  //   return '';
-  // }
-
-  // static String decryptImage(dynamic data) {
-  //   try {
-  //     final encrypt = Encrypter(AES(mediaKey, mode: AESMode.cbc));
-  //     final encrypted = Encrypted.fromBase64(data);
-  //     final stopwatch = Stopwatch()..start();
-  //     final decrypted = encrypt.decryptBytes(encrypted, iv: mediaIv);
-  //     CoreKitLogger().d('decode() executed in ${stopwatch.elapsed}');
-  //     return base64Encode(decrypted);
-  //   } catch (err) {
-  //     CoreKitLogger().e(err);
-  //     return '';
-  //   }
-  // }
-
-  static dynamic decryptM3U8(String data) {
+  static String? decryptM3U8(String data) {
     try {
       final encrypt = Encrypter(AES(mediaKey, mode: AESMode.cbc));
       final encrypted = Encrypted.fromBase64(data);

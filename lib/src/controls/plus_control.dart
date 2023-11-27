@@ -20,6 +20,7 @@ class PlusControl with ChangeNotifier {
     this.useCache = false,
     this.decryptM3U8,
     this.encry,
+    this.encrypt = false,
   }) {
     initPlay();
   }
@@ -34,6 +35,7 @@ class PlusControl with ChangeNotifier {
 
   final Function? decryptM3U8;
   final Function? encry;
+  final bool encrypt;
 
   FijkPlayer? _player;
   FlickManager? _flickManager;

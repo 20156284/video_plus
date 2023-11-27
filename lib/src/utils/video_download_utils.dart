@@ -9,6 +9,7 @@ import 'package:hive/hive.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:video_plus/src/utils/logger.dart';
 
 dior.Dio dio = dior.Dio();
 
@@ -36,13 +37,16 @@ class VideoDownloadUtil {
 
   // 获取地址
   static Future<String> getPath(String folderName) async {
-    Directory? documents;
-    if (Platform.isAndroid) {
-      documents = await getExternalStorageDirectory();
-    } else {
-      documents = await getApplicationDocumentsDirectory();
-    }
-    final _getApplicationDocumentsDirectory = documents!.path;
+    // Directory? documents;
+    // if (Platform.isAndroid) {
+    //   documents = await getExternalStorageDirectory();
+    // } else {
+    //   documents = await getApplicationDocumentsDirectory();
+    // }
+
+    final documents = await getApplicationDocumentsDirectory();
+
+    final _getApplicationDocumentsDirectory = documents.path;
     final _cachePath = '$_getApplicationDocumentsDirectory/$folderName/';
     final directory = Directory(_cachePath);
     final isExists = await directory.exists();
@@ -147,18 +151,8 @@ class VideoDownloadUtil {
 
   // 请求权限
   static Future<bool> getPermission() async {
-    var storageStatus = await Permission.storage.status;
-    if (storageStatus == PermissionStatus.denied) {
-      storageStatus = await Permission.storage.request();
-      if (storageStatus == PermissionStatus.denied ||
-          storageStatus == PermissionStatus.permanentlyDenied) {
-        return false;
-      }
-      return true;
-    } else if (storageStatus == PermissionStatus.permanentlyDenied) {
-      return false;
-    }
-    return true;
+    final storageStatus = await Permission.storage.request();
+    return storageStatus == PermissionStatus.granted;
   }
 
   // 创建下载任务
@@ -187,12 +181,13 @@ class VideoDownloadUtil {
       // CommonUtils.showText(CommonUtils.txt('dtk'));
       return;
     }
-    final havePermission = await getPermission();
-    if (havePermission) {
-      creating = true;
-    } else {
-      return;
-    }
+    // final havePermission = await getPermission();
+    // if (havePermission) {
+    //   creating = true;
+    // } else {
+    //   return;
+    // }
+
     try {
       final box = await Hive.openBox(boxName);
       final List tasks = box.get('download_video_tasks') ?? [];
@@ -254,8 +249,8 @@ class VideoDownloadUtil {
       tasks.insert(0, taskInfo);
       await box.put('download_video_tasks', tasks);
       creating = false;
-    } catch (e) {
-      debugPrint(e.toString());
+    } catch (e, s) {
+      CoreKitLogger().e('createDownloadTask error', e, s);
       creating = false;
     }
   }
@@ -280,7 +275,7 @@ class VideoDownloadUtil {
   static Future<void> downloadContent(Map taskInfo, Box box) async {
     final List tsListsFinished = taskInfo['tsListsFinished'];
     initStatus(finishNum: tsListsFinished.length);
-    final tsLists = <String>[taskInfo['tsLists']];
+    final tsLists = taskInfo['tsLists'];
     final String saveDirectory =
         taskInfo['url'].substring(0, taskInfo['url'].lastIndexOf('/'));
     // 提取未完成的下载任务队列
@@ -333,7 +328,8 @@ class VideoDownloadUtil {
           _index++;
           await start();
         }
-      } catch (e) {
+      } catch (e, s) {
+        CoreKitLogger().e('createDownloadTask error', e, s);
         // 下载失败，开始下个任务
         tasks = box.get('download_video_tasks') ?? [];
         taskNum = tasks.indexWhere((e) => e['id'] == taskInfo['id']);
@@ -396,7 +392,7 @@ class VideoDownloadUtil {
   //获取本地唯一标识
   static Future<String> getUniqueId({Function? decry}) async {
     final saveDirectory = await getEnvironmentPath('guqiuni'); // 获取储存地址
-    debugPrint(saveDirectory);
+    CoreKitLogger().d('getUniqueId $saveDirectory');
     try {
       final data = await File('${saveDirectory}unis.json').readAsString();
       final Map json = jsonDecode(data);
@@ -410,11 +406,11 @@ class VideoDownloadUtil {
 
       final txt = String.fromCharCodes(uits);
       // AppGlobal.isSave = true;
-      debugPrint('parsing--$txt--$cx');
+      CoreKitLogger().d('parsing--$txt--$cx');
       return txt;
     } on FileSystemException catch (e) {
       final androidInfo = await DeviceInfoPlugin().androidInfo;
-      debugPrint('custom id--${androidInfo.id}--$e');
+      CoreKitLogger().d('custom id--${androidInfo.id}--$e');
       await setUniqueId(
         uni: androidInfo.id,
       ); //存储
@@ -444,8 +440,8 @@ class VideoDownloadUtil {
       } else {
         debugPrint('failed success');
       }
-    } on FileSystemException catch (e) {
-      debugPrint(e.toString());
+    } on FileSystemException catch (e, s) {
+      CoreKitLogger().e('setUniqueId error', e, s);
     }
   }
 }
